@@ -1,0 +1,21 @@
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.yammer.dropwizard:dropwizard-core:0.6.2'
+    compile 'org.mongodb.morphia:morphia:0.108'
+
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    testCompile 'cglib:cglib-nodep:3.1'
+    testCompile 'org.objenesis:objenesis:2.1'
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.0'
+
+}
+

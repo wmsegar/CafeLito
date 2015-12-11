@@ -1,0 +1,4 @@
+http:
+  rootPath: /service/*
+  port: 65530
+  adminPort: 65529
