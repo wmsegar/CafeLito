@@ -4,12 +4,9 @@ import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.Consumes;
 import java.net.URI;
 
 
@@ -21,6 +18,17 @@ public class CoffeeShopResource {
     public CoffeeShopResource(MongoClient mongoClient) {
         datastore = new Morphia().createDatastore(mongoClient, "Cafelito");
     }
+
+    @Path("nearest/{latitude}/{longitude}")
+    @GET
+    public Object getNearest(@PathParam("latitude") double latitude ,
+                        @PathParam("longitude") double longitude ) {
+        return datastore.find(CoffeeShop.class)
+                        .field("location")
+                        .near(longitude, latitude, true)
+                        .get();
+    }
+
     @Path("order")
     @POST()
     @Consumes(MediaType.APPLICATION_JSON)
