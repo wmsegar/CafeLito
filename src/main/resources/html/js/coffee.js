@@ -29,7 +29,7 @@ coffeeApp.controller('CoffeeShopController', function ($scope, $window, $resourc
     $scope.findCoffeeShopNearestToMe();
 });
 
-coffeeApp.controller('OrderController', function ($scope, $resource) {
+coffeeApp.controller('OrderController', function ($scope, $resource, LocalCoffeeShop) {
     $scope.types = [
         {name: 'Americano', family: 'Coffee'},
         {name: 'Latte', family: 'Coffee'},
@@ -42,7 +42,7 @@ coffeeApp.controller('OrderController', function ($scope, $resource) {
     $scope.messages = [];
 
     $scope.giveMeCoffee = function () {
-        $scope.drink.coffeeShopId = 1;
+        $scope.drink.coffeeShopId = LocalCoffeeShop.getShop().openStreetMapId;
         var CoffeeOrder = $resource('/service/coffeeshop/order/');
         CoffeeOrder.save($scope.drink, function (order) {
             $scope.messages.push({type: 'success', msg: 'Order Sent!'})
