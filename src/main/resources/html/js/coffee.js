@@ -17,14 +17,21 @@ coffeeApp.controller('CoffeeShopController', function ($scope, $window, $resourc
     var CoffeeShopLocator = $resource('/service/coffeeshop/nearest/:latitude/:longitude',
         {latitude: '@latitude', longitude: '@longitude'}, {});
 
+    function success(position){
+        CoffeeShopLocator.get({latitude: position.coords.latitude, longitude: position.coords.longitude},
+            function (foundCoffeeShop) {
+                $scope.nearestCoffeeShop = foundCoffeeShop;
+                LocalCoffeeShop.setShop(foundCoffeeShop);
+            });
+    }
+
+    function error(err){
+        alert('Error: ' + err.message + ' Please enable location services for this site to Order Coffee');
+        //LocalCoffeeShop.getShop().openStreetMapId = 1677786338;
+    }
+
     $scope.findCoffeeShopNearestToMe = function () {
-        window.navigator.geolocation.getCurrentPosition(function (position) {
-            CoffeeShopLocator.get({latitude: position.coords.latitude, longitude: position.coords.longitude},
-                function (foundCoffeeShop) {
-                    $scope.nearestCoffeeShop = foundCoffeeShop;
-                    LocalCoffeeShop.setShop(foundCoffeeShop);
-                });
-        });
+        window.navigator.geolocation.getCurrentPosition(success, error);
     };
     $scope.findCoffeeShopNearestToMe();
 });
