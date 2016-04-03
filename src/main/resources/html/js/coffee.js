@@ -23,11 +23,13 @@ coffeeApp.controller('CoffeeShopController', function ($scope, $window, $resourc
                 $scope.nearestCoffeeShop = foundCoffeeShop;
                 LocalCoffeeShop.setShop(foundCoffeeShop);
             });
+
     }
 
     function error(err){
         alert('Error: ' + err.message + ' Please enable location services for this site to Order Coffee');
-        //LocalCoffeeShop.getShop().openStreetMapId = 1677786338;
+        alert("hi");
+        console.log($scope.drink.coffeeShopId);
     }
 
     $scope.findCoffeeShopNearestToMe = function () {
@@ -49,10 +51,17 @@ coffeeApp.controller('OrderController', function ($scope, $resource, LocalCoffee
     $scope.messages = [];
 
     $scope.giveMeCoffee = function () {
+        if ($scope.drink.coffeeShopId == 1){
+            $scope.drink.coffeeShopId = 1;
+            var CoffeeOrder = $resource('/service/coffeeshop/order/');
+            CoffeeOrder.save($scope.drink, function (order) {
+                $scope.messages.push({type: 'success', msg: 'Order Sent!'})
+            });
+        } else {
         $scope.drink.coffeeShopId = LocalCoffeeShop.getShop().openStreetMapId;
         var CoffeeOrder = $resource('/service/coffeeshop/order/');
         CoffeeOrder.save($scope.drink, function (order) {
             $scope.messages.push({type: 'success', msg: 'Order Sent!'})
-        });
+        })};
     };
 });
