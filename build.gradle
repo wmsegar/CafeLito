@@ -1,6 +1,6 @@
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
+apply plugin: 'application'
 
 sourceCompatibility = 1.5
 
@@ -17,5 +17,11 @@ dependencies {
     testCompile 'org.objenesis:objenesis:2.1'
     testCompile 'org.codehaus.groovy:groovy-all:2.4.0'
 
+}
+
+mainClassName = "com.mechanitis.demo.coffee.CoffeeShopService"
+
+run {
+    args 'server', 'coffee.yaml'
 }
 

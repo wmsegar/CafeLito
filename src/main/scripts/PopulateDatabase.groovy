@@ -1,7 +1,8 @@
 import com.mongodb.BasicDBObject
 import com.mongodb.MongoClient
 
-def mongoClient = new MongoClient();
+def mongoClient = new MongoClient(); //Use localhost as default database
+//def mongoClient = new MongoClient("64.15.188.200", 27017) //Pointing to Production DB host in the cloud
 def collection = mongoClient.getDB("Cafelito").getCollection("CoffeeShop")
 collection.drop()
 

@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 
 
+
 @Path("/coffeeshop")
 @Produces(MediaType.APPLICATION_JSON)
 public class CoffeeShopResource {
