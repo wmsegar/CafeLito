@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response
 class CoffeeShopResourceSpecification extends Specification {
     def 'should return closest coffee shop to Portland Conference Center'() {
         given:
-        def mongoClient = new MongoClient()
+        def mongoClient = new MongoClient("64.15.185.35", 8080)
         def coffeeShop = new CoffeeShopResource(mongoClient)
 
         when:
